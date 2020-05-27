@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Flights\HomeController@search')->name('searchflight');
+Route::post('/', 'Flights\HomeController@index');
+
+
+/*Route::get('home',function(){
+    return view('flights.index');
+});*/
