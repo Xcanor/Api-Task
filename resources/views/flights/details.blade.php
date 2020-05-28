@@ -37,10 +37,10 @@
       <td>{{$flight['DepartureAirportName']}}</td>
       <td>{{$flight['ArrivalAirportName']}}</td>
 
-      @if($flight['FlightLayoverTime'] == 0)
-      <td>-</td>
+      @if($key == 0)
+      <td>{{floor($flights[$key+1]['FlightLayoverTime']/60) . " " . "hrs" . " " . $flight['FlightLayoverTime']%60 . " " . "mins"}}</td>
       @else
-      <td>{{floor($flight['FlightLayoverTime']/60) . " " . "hrs" . " " . $flight['FlightLayoverTime']%60 . " " . "mins"}}</td>
+      <td>-</td>
       @endif
     </tr>
     @endforeach
