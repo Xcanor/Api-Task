@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Flights;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -13,12 +12,11 @@ class HomeController extends Controller
     {
         return view('flights.index');
     }
+
     public function index(Request $request)
     {
-        $client = new Client();
-        $data = $client->request('POST','https://api.flyallover.com/api/search',
-        [
-            'form_params' => [
+        $data = Http::post('https://api.flyallover.com/api/search',
+            [
               'trip_type' => 'OneWay',
                 'origin' => $request['from'],
                 'destination' => $request['to'],
@@ -33,19 +31,16 @@ class HomeController extends Controller
                 'seat' => 0,
                 'class' => $request['class']
             ]
-        ]
         );
+
         $response = $data->getBody();
         $flights = json_decode($response,true);
         //$flights_details= $flights['data']['Itineraries'][0]['flights'][0][0]['FlightNumber'];
-        foreach($flights['data']['Itineraries'] as $itineraries)
-        {   
-            foreach($itineraries['flights'] as $flights_details)
-            {
-                $results = $flights_details; 
-                return view('flights.details',compact('results'));
-            }
-        }
+        
+        $results = $flights['data']['Itineraries'];
+        return view('flights.details',compact('results'));
+            
+    
         
     }
 }

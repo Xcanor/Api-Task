@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Flights\HomeController@search')->name('searchflight');
-Route::post('/', 'Flights\HomeController@index');
+Route::get('/', 'Flights\HomeController@search');
+
+Route::post('results', 'Flights\HomeController@index')->name('searchflight');
 
 
 /*Route::get('home',function(){

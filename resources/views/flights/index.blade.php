@@ -33,7 +33,7 @@
     <label for="class">Class</label>
     <input type="text" name="class" class="form-control" id="class">
   </div>
-
+  
   <button type="submit" class="btn btn-primary mt-3">Search</button>
 </form>
 </body>

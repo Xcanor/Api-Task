@@ -23,19 +23,28 @@
   </thead>
   <tbody>
     @foreach($results as $result)
+    @foreach($result['flights'] as $flights)
+    @foreach($flights as $key => $flight)
     <tr>
-      <td>{{$result['FlightNumber']}}</td>
-      <td>{{date('Y-m-d h:i A', strtotime($result['DepartureDateTime']))}}</td>
-      <td>{{date('Y-m-d h:i A', strtotime($result['ArrivalDateTime']))}}</td>
+      <td>{{$flight['FlightNumber']}}</td>
+      <td>{{date('Y-m-d h:i A', strtotime($flight['DepartureDateTime']))}}</td>
+      <td>{{date('Y-m-d h:i A', strtotime($flight['ArrivalDateTime']))}}</td>
       <td>
-      {{floor($result['ElapsedTime']/60) . " " . "hrs" . " " . $result['ElapsedTime']%60 . " " . "mins"}}
+      {{floor($flight['ElapsedTime']/60) . " " . "hrs" . " " . $flight['ElapsedTime']%60 . " " . "mins"}}
       </td>
-      <td>{{$result['OperatingAirline']}}</td>
-      <td>{{$result['OperatingAirlineName']}}</td>
-      <td>{{$result['DepartureAirportName']}}</td>
-      <td>{{$result['ArrivalAirportName']}}</td>
-      <td>{{floor($result['FlightLayoverTime']/60) . " " . "hrs" . " " . $result['FlightLayoverTime']%60 . " " . "mins"}}</td>
+      <td>{{$flight['OperatingAirline']}}</td>
+      <td>{{$flight['OperatingAirlineName']}}</td>
+      <td>{{$flight['DepartureAirportName']}}</td>
+      <td>{{$flight['ArrivalAirportName']}}</td>
+
+      @if($flight['FlightLayoverTime'] == 0)
+      <td>-</td>
+      @else
+      <td>{{floor($flight['FlightLayoverTime']/60) . " " . "hrs" . " " . $flight['FlightLayoverTime']%60 . " " . "mins"}}</td>
+      @endif
     </tr>
+    @endforeach
+    @endforeach
     @endforeach
   </tbody>
 </table>
